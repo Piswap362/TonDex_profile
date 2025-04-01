@@ -432,6 +432,129 @@
             text-align: center;
         }
         
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        
+        .modal-content {
+            background: var(--gradient-dark);
+            border-radius: 16px;
+            padding: 25px;
+            width: 100%;
+            max-width: 350px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+            position: relative;
+            animation: modalFadeIn 0.3s ease-out;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .modal-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: var(--accent-color);
+        }
+        
+        .close-modal {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0.7;
+            transition: var(--transition);
+        }
+        
+        .close-modal:hover {
+            opacity: 1;
+            transform: rotate(90deg);
+        }
+        
+        .modal-body {
+            margin-bottom: 20px;
+        }
+        
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 10px;
+        }
+        
+        .modal-btn {
+            padding: 10px 20px;
+            border-radius: 8px;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+        
+        .modal-btn-primary {
+            background-color: var(--accent-color);
+            color: var(--primary-dark);
+        }
+        
+        .modal-btn-secondary {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text-light);
+        }
+        
+        .modal-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        
+        /* Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 80px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: var(--accent-color);
+            color: var(--primary-dark);
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            z-index: 3000;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+            animation: toastSlideIn 0.3s ease-out, toastSlideOut 0.3s ease-in 2.7s;
+            display: none;
+            max-width: 90%;
+            text-align: center;
+        }
+        
+        @keyframes toastSlideIn {
+            from { bottom: -50px; opacity: 0; }
+            to { bottom: 80px; opacity: 1; }
+        }
+        
+        @keyframes toastSlideOut {
+            from { bottom: 80px; opacity: 1; }
+            to { bottom: -50px; opacity: 0; }
+        }
+        
         /* Responsive adjustments */
         @media (max-width: 350px) {
             .quick-actions {
@@ -474,13 +597,13 @@
             </div>
             <div class="profile-wallet">0x1a2b...3c4d</div>
             <div class="profile-actions">
-                <button class="profile-action-btn">
+                <button class="profile-action-btn" onclick="showQRModal()">
                     <i class="fas fa-qrcode"></i>
                 </button>
-                <button class="profile-action-btn">
+                <button class="profile-action-btn" onclick="copyWalletAddress()">
                     <i class="fas fa-copy"></i>
                 </button>
-                <button class="profile-action-btn">
+                <button class="profile-action-btn" onclick="showShareModal()">
                     <i class="fas fa-share-alt"></i>
                 </button>
             </div>
@@ -490,26 +613,26 @@
         <div class="balance-card">
             <div class="balance-header">
                 <div class="balance-title">Total Balance</div>
-                <i class="fas fa-eye" style="opacity: 0.7;"></i>
+                <i class="fas fa-eye" style="opacity: 0.7;" onclick="toggleBalanceVisibility()"></i>
             </div>
             <div class="total-balance">$1,245.50</div>
         </div>
         
         <!-- Quick Actions -->
         <div class="quick-actions">
-            <a href="#" class="action-btn">
+            <a href="https://piswap362.github.io/TonDex_swap/" class="action-btn">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Swap</span>
             </a>
-            <a href="#" class="action-btn">
+            <a href="#" class="action-btn" onclick="showComingSoonModal()">
                 <i class="fas fa-arrow-down"></i>
                 <span>Deposit</span>
             </a>
-            <a href="#" class="action-btn">
+            <a href="#" class="action-btn" onclick="showComingSoonModal()">
                 <i class="fas fa-arrow-up"></i>
                 <span>Withdraw</span>
             </a>
-            <a href="#" class="action-btn">
+            <a href="#" class="action-btn" onclick="showComingSoonModal()">
                 <i class="fas fa-coins"></i>
                 <span>Stake</span>
             </a>
@@ -522,19 +645,19 @@
         
         <!-- Button Links Section -->
         <div class="button-links">
-            <a href="#" class="link-button">
+            <a href="#" class="link-button" onclick="showComingSoonModal()">
                 <i class="fas fa-history"></i>
                 <span>Transaction History</span>
             </a>
-            <a href="#" class="link-button">
+            <a href="#" class="link-button" onclick="showComingSoonModal()">
                 <i class="fas fa-wallet"></i>
                 <span>Wallet Management</span>
             </a>
-            <a href="#" class="link-button">
+            <a href="#" class="link-button" onclick="showComingSoonModal()">
                 <i class="fas fa-cog"></i>
                 <span>Settings</span>
             </a>
-            <a href="#" class="link-button">
+            <a href="#" class="link-button" onclick="showComingSoonModal()">
                 <i class="fas fa-shield-alt"></i>
                 <span>Security</span>
             </a>
@@ -575,8 +698,9 @@
             </div>
         </div>
         
+        <!-- Bottom Menu -->
         <div class="bottom-menu">
-            <a href="https://piswap362.github.io/TonDex_Swap/" class="menu-btn">
+            <a href="https://piswap362.github.io/TonDex_swap/" class="menu-btn">
                 <i class="fas fa-exchange-alt"></i>
                 <span>Swap</span>
             </a>
@@ -584,32 +708,104 @@
                 <i class="fas fa-chart-line"></i>
                 <span>Stats</span>
             </a>
-            <a href="#" class="menu-btn">
+            <a href="https://piswap362.github.io/TonDex_Pools/" class="menu-btn">
                 <i class="fas fa-coins"></i>
                 <span>Pools</span>
             </a>
-            <a href="#" class="menu-btn active">
+            <a href="https://piswap362.github.io/TonDex_profile/" class="menu-btn active">
                 <i class="fas fa-user"></i>
                 <span>Profile</span>
             </a>
         </div>
     </div>
     
+    <!-- QR Code Modal -->
+    <div class="modal" id="qrModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Wallet QR Code</h3>
+                <button class="close-modal" onclick="closeModal('qrModal')">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <div style="background: white; padding: 20px; display: inline-block; border-radius: 8px;">
+                    <!-- Placeholder for QR code -->
+                    <i class="fas fa-qrcode" style="font-size: 150px; color: black;"></i>
+                </div>
+                <p style="margin-top: 15px; font-size: 14px;">Scan this QR code to receive funds</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-secondary" onclick="closeModal('qrModal')">Close</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Share Modal -->
+    <div class="modal" id="shareModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Share Wallet Address</h3>
+                <button class="close-modal" onclick="closeModal('shareModal')">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p style="margin-bottom: 15px;">Share your wallet address with others to receive funds:</p>
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 12px; border-radius: 8px; word-break: break-all; margin-bottom: 15px;">
+                    0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px;">
+                    <button class="modal-btn modal-btn-secondary" style="padding: 8px;" onclick="shareVia('copy')">
+                        <i class="fas fa-copy"></i> Copy
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" style="padding: 8px;" onclick="shareVia('whatsapp')">
+                        <i class="fab fa-whatsapp"></i>
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" style="padding: 8px;" onclick="shareVia('telegram')">
+                        <i class="fab fa-telegram"></i>
+                    </button>
+                    <button class="modal-btn modal-btn-secondary" style="padding: 8px;" onclick="shareVia('email')">
+                        <i class="fas fa-envelope"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-primary" onclick="closeModal('shareModal')">Done</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Coming Soon Modal -->
+    <div class="modal" id="comingSoonModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Coming Soon!</h3>
+                <button class="close-modal" onclick="closeModal('comingSoonModal')">&times;</button>
+            </div>
+            <div class="modal-body" style="text-align: center;">
+                <i class="fas fa-rocket" style="font-size: 50px; color: var(--accent-color); margin-bottom: 20px;"></i>
+                <p>This feature is currently in development and will be available in the next update.</p>
+                <p>Stay tuned for exciting new functionality!</p>
+            </div>
+            <div class="modal-footer">
+                <button class="modal-btn modal-btn-primary" onclick="closeModal('comingSoonModal')">Got It</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Toast Notification -->
+    <div class="toast" id="toastNotification"></div>
+    
     <script>
         // Simple copy wallet address functionality
-        document.querySelector('.fa-copy').closest('button').addEventListener('click', () => {
+        function copyWalletAddress() {
             const walletAddress = '0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b';
             navigator.clipboard.writeText(walletAddress);
-            
-            // Show a simple notification (in a real app, you'd use a proper toast)
-            alert('Wallet address copied to clipboard!');
-        });
+            showToast('Wallet address copied to clipboard!');
+        }
         
         // Toggle balance visibility
-        const eyeIcon = document.querySelector('.fa-eye');
-        const totalBalance = document.querySelector('.total-balance');
-        
-        eyeIcon.addEventListener('click', () => {
+        function toggleBalanceVisibility() {
+            const eyeIcon = document.querySelector('.fa-eye');
+            const totalBalance = document.querySelector('.total-balance');
+            
             eyeIcon.classList.toggle('fa-eye-slash');
             
             if (eyeIcon.classList.contains('fa-eye-slash')) {
@@ -619,7 +815,63 @@
                 totalBalance.textContent = '$1,245.50';
                 eyeIcon.style.opacity = '0.7';
             }
-        });
+        }
+        
+        // Modal functions
+        function showQRModal() {
+            document.getElementById('qrModal').style.display = 'flex';
+        }
+        
+        function showShareModal() {
+            document.getElementById('shareModal').style.display = 'flex';
+        }
+        
+        function showComingSoonModal() {
+            document.getElementById('comingSoonModal').style.display = 'flex';
+        }
+        
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+        
+        // Share via different methods
+        function shareVia(method) {
+            let message = 'My wallet address: 0x1a2b3c4d5e6f7a8b9c0d1e2f3a4b5c6d7e8f9a0b';
+            
+            switch(method) {
+                case 'copy':
+                    navigator.clipboard.writeText(message);
+                    showToast('Address copied to clipboard!');
+                    break;
+                case 'whatsapp':
+                    window.open(`https://wa.me/?text=${encodeURIComponent(message)}`, '_blank');
+                    break;
+                case 'telegram':
+                    window.open(`https://t.me/share/url?url=${encodeURIComponent(message)}`, '_blank');
+                    break;
+                case 'email':
+                    window.open(`mailto:?body=${encodeURIComponent(message)}`, '_blank');
+                    break;
+            }
+        }
+        
+        // Toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toastNotification');
+            toast.textContent = message;
+            toast.style.display = 'block';
+            
+            setTimeout(() => {
+                toast.style.display = 'none';
+            }, 3000);
+        }
+        
+        // Close modals when clicking outside
+        window.onclick = function(event) {
+            if (event.target.className === 'modal') {
+                event.target.style.display = 'none';
+            }
+        }
     </script>
 </body>
 </html>
